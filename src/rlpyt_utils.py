@@ -87,7 +87,6 @@ class MinibatchRlEvalWandb(MinibatchRlEval):
         3) algorithm, 4) logger.
         """
         p = psutil.Process()
-        MAX_THREADS = 16
         try:
             if (self.affinity.get("master_cpus", None) is not None and
                     self.affinity.get("set_affinity", True)):
@@ -97,11 +96,8 @@ class MinibatchRlEvalWandb(MinibatchRlEval):
             cpu_affin = "UNAVAILABLE MacOS"
         logger.log(f"Runner {getattr(self, 'rank', '')} master CPU affinity: "
             f"{cpu_affin}.")
-        MAX_THREADS = min(torch.get_num_threads(), MAX_THREADS) # Hardcode max threads to be 16
         if self.affinity.get("master_torch_threads", None) is not None:
             torch.set_num_threads(self.affinity["master_torch_threads"])
-        else:
-            torch.set_num_threads(MAX_THREADS)
         logger.log(f"Runner {getattr(self, 'rank', '')} master Torch threads: "
             f"{torch.get_num_threads()}.")
         set_seed(self.seed)
