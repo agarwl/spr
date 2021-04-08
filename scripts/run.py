@@ -135,7 +135,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.wandb_dir:
-        args.wandb_dir += f'_{args.game}_{args.seed}'
+        args.wandb_dir += f'/{args.game}_{args.seed}'
     if args.public:
         wandb.init(anonymous="allow", config=args, tags=[args.tag] if args.tag else None, dir=args.wandb_dir)
     else:
