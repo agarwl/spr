@@ -137,7 +137,7 @@ if __name__ == "__main__":
 
     if args.wandb_dir:
         args.wandb_dir += '/' + f'{args.game}_{args.seed}'
-    os.makedirs(args.wandb_dir)
+    os.makedirs(args.wandb_dir, exist_ok=True)
     os.chmod(args.wandb_dir, 0o777)
     if args.public:
         wandb.init(anonymous="allow", config=args, tags=[args.tag] if args.tag else None, dir=args.wandb_dir)
