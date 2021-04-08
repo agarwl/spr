@@ -25,7 +25,7 @@ from src.rlpyt_atari_env import AtariEnv
 from src.utils import set_config
 
 
-def build_and_train(game="pong", run_ID=0, cuda_idx=0, args=None, master_torch_threads=16, master_cpus=16):
+def build_and_train(game="pong", run_ID=0, cuda_idx=0, args=None):
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     env = AtariEnv
@@ -54,7 +54,7 @@ def build_and_train(game="pong", run_ID=0, cuda_idx=0, args=None, master_torch_t
         agent=agent,
         sampler=sampler,
         n_steps=args.n_steps,
-        affinity=dict(cuda_idx=cuda_idx, master_torch_threads=master_torch_threads, master_cpus=list(range(master_cpus))),
+        affinity=dict(cuda_idx=cuda_idx),
         log_interval_steps=args.n_steps//args.num_logs,
         seed=args.seed,
         final_eval_only=args.final_eval_only,
