@@ -134,6 +134,8 @@ if __name__ == "__main__":
     parser.add_argument('--public', action='store_true', help='If set, uses anonymous wandb logging')
     args = parser.parse_args()
 
+    if args.wandb-dir:
+        args.wandb-dir = args.wandb-dir + f'_{args.game}_{args.seed}'
     if args.public:
         wandb.init(anonymous="allow", config=args, tags=[args.tag] if args.tag else None, dir=args.wandb_dir)
     else:
